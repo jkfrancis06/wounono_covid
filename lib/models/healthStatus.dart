@@ -5,7 +5,7 @@ class HealthStatus {
   final TestResult testSatuts;
 
   HealthStatus({
-     this.testDate,  this.testSatuts
+    this.testDate, this.testSatuts
   });
 
 }

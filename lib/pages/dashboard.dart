@@ -1,17 +1,13 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:wounono_covid/models/sizeConfig.dart';
-import 'package:wounono_covid/utils/constants.dart';
-import 'package:wounono_covid/widgets/bottom_bar.dart';
 import 'package:wounono_covid/widgets/dashboard/user_health_status.dart';
 import 'package:wounono_covid/widgets/dashboard/user_top_card.dart';
 import 'package:wounono_covid/widgets/dashboard/user_vaccine_status.dart';
+import 'package:wounono_covid/widgets/travel/checkin_card.dart';
+import 'package:wounono_covid/widgets/travel/travel_history_card.dart';
 
 class Dashboard extends StatefulWidget {
 
+  const Dashboard({Key key}) : super(key: key);
 
   @override
   _DashboardState createState() => _DashboardState();
@@ -37,6 +33,23 @@ class _DashboardState extends State<Dashboard> {
                       horizontal: 12.0,
                     ),
                     child: UserTopCard(),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12.0,
+                    ),
+                    child: Row(
+                      children: [
+                        CheckinCard(),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width*0.006,
+                        ),
+                        TravelHistoryCard()
+                      ],
+                    ),
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.02,
@@ -70,7 +83,9 @@ class _DashboardState extends State<Dashboard> {
                       ],
                     ),
                   ),
-
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
                   Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: 12.0,
@@ -81,7 +96,7 @@ class _DashboardState extends State<Dashboard> {
                   ),
 
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.01,
+                    height: MediaQuery.of(context).size.height * 0.02,
                   ),
 
                   Padding(
@@ -105,6 +120,10 @@ class _DashboardState extends State<Dashboard> {
                     ),
                   ),
 
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+
                   Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: 12.0,
@@ -122,9 +141,12 @@ class _DashboardState extends State<Dashboard> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Add your onPressed code here!
+          print('fab pressed');
         },
-        child: const Icon(Icons.navigation),
+        child: const Icon(
+          Icons.qr_code_2,
+          size: 35.0,
+        ),
         backgroundColor: Colors.green,
       ),
     );

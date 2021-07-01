@@ -13,7 +13,7 @@ class UserHealthStatus extends StatelessWidget {
 
      List<HealthStatus> healthStatus = [
        HealthStatus(
-           testDate: DateTime(0,0,0),
+           testDate: null,
            testSatuts: TestResult.TEST_NULL
        ),
        HealthStatus(
@@ -29,109 +29,113 @@ class UserHealthStatus extends StatelessWidget {
 
 
      return Container(
-       height: ScreenUtil().setHeight(170.0),
+       height: MediaQuery.of(context).size.height/5.5,
        child: ListView.separated(
            physics: BouncingScrollPhysics(),
            padding: EdgeInsets.symmetric(horizontal: 5.0),
            scrollDirection: Axis.horizontal,
            itemBuilder:(BuildContext context, int index ) {
-             return GestureDetector(
-                 onTap: (){
-                   final snackBar = SnackBar(content: Text('Tap'));
-                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                 },
-                 child:
-                 Column(
-                   children: [
-                     SizedBox(
-                       height: ScreenUtil().setHeight(20.0),
-                     ),
-                     Container(
-                       width: MediaQuery.of(context).size.width * 0.90,
-                       decoration: BoxDecoration(
-                         color: Colors.white,
-                         borderRadius: BorderRadius.circular(8.0),
+             return  Stack(
+               children: [
+                 SizedBox(
+                   height: ScreenUtil().setHeight(15.0),
+                 ),
+                 Container(
+                   width: MediaQuery.of(context).size.width * 0.90,
+                   decoration: BoxDecoration(
+                     color: Colors.white,
+                     borderRadius: BorderRadius.circular(8.0),
+                   ),
+                   padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 14.0),
+                   child: Row(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                       Container(
+                         width: ScreenUtil().setWidth(80.0),
+                         height: ScreenUtil().setHeight(80.0),
+                         child: Image.asset(
+                             _getQrImage(healthStatus[index].testSatuts)
+                         ),
                        ),
-                       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 14.0),
-                       child: Row(
-                         crossAxisAlignment: CrossAxisAlignment.start,
-                         children: [
-                           Container(
-                             width: ScreenUtil().setWidth(100.0),
-                             height: ScreenUtil().setHeight(100.0),
-                             child: Image.asset(
-                                 _getQrImage(healthStatus[index].testSatuts)
-                             ),
-                           ),
-                           SizedBox(
-                             width: ScreenUtil().setWidth(10.0),
-                           ),
-                           Expanded(
-                             child: Column(
-                               crossAxisAlignment: CrossAxisAlignment.start,
+                       SizedBox(
+                         width: ScreenUtil().setWidth(10.0),
+                       ),
+                       Expanded(
+                         child: Column(
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                           children: [
+                             Wrap(
                                children: [
-                                 Wrap(
-                                   children: [
-                                     Text(
-                                       "Date du test :",
-                                       style: Theme.of(context)
-                                           .textTheme
-                                           .bodyText1
-                                           .copyWith(
-                                           color: Color.fromRGBO(74, 77, 84, 0.7),
-                                       ),
-                                     ),
-                                     SizedBox(
-                                       width: 4.0,
-                                     ),
-                                     Text(
-                                       healthStatus[index].testDate == null  ? "--" : formatter.format(healthStatus[index].testDate),
-                                       style: Theme.of(context)
-                                           .textTheme
-                                           .bodyText1
-                                           .copyWith(
-                                         color: Color.fromRGBO(19, 22, 33, 1),
-                                       ),
-                                     ),
-                                   ],
+                                 Text(
+                                   "Date du test :",
+                                   style: Theme.of(context)
+                                       .textTheme
+                                       .bodyText1
+                                       .copyWith(
+                                     color: Color.fromRGBO(74, 77, 84, 0.7),
+                                   ),
                                  ),
                                  SizedBox(
-                                   height: 5.0,
+                                   width: 4.0,
                                  ),
-                                 Wrap(
-                                   children: [
-                                     Text(
-                                       "Resultat du test :",
-                                       style: Theme.of(context)
-                                           .textTheme
-                                           .bodyText1
-                                           .copyWith(
-                                         color: Color.fromRGBO(74, 77, 84, 0.7),
-                                       ),
-                                     ),
-                                     SizedBox(
-                                       width: 4.0,
-                                     ),
-                                     Text(
-                                       _getResultString(healthStatus[index].testSatuts),
-                                       style: Theme.of(context)
-                                           .textTheme
-                                           .bodyText1
-                                           .copyWith(
-                                         color: _getResultColor(healthStatus[index].testSatuts),
-                                         fontWeight: FontWeight.bold
-                                       ),
-                                     ),
-                                   ],
+                                 Text(
+                                   healthStatus[index].testDate == null  ? "--" : formatter.format(healthStatus[index].testDate),
+                                   style: Theme.of(context)
+                                       .textTheme
+                                       .bodyText1
+                                       .copyWith(
+                                     color: Color.fromRGBO(19, 22, 33, 1),
+                                   ),
                                  ),
                                ],
                              ),
-                           ),
-                         ],
+                             SizedBox(
+                               height: 5.0,
+                             ),
+                             Wrap(
+                               children: [
+                                 Text(
+                                   "Resultat du test :",
+                                   style: Theme.of(context)
+                                       .textTheme
+                                       .bodyText1
+                                       .copyWith(
+                                     color: Color.fromRGBO(74, 77, 84, 0.7),
+                                   ),
+                                 ),
+                                 SizedBox(
+                                   width: 4.0,
+                                 ),
+                                 Text(
+                                   _getResultString(healthStatus[index].testSatuts),
+                                   style: Theme.of(context)
+                                       .textTheme
+                                       .bodyText1
+                                       .copyWith(
+                                       color: _getResultColor(healthStatus[index].testSatuts),
+                                       fontWeight: FontWeight.bold
+                                   ),
+                                 ),
+                               ],
+                             ),
+                           ],
+                         ),
                        ),
-                     ),
-                   ],
+                     ],
+                   ),
+                 ),
+                 Positioned.fill(
+                     child: new Material(
+                         color: Colors.transparent,
+                         child: new InkWell(
+                           borderRadius: BorderRadius.circular(11.0),
+                           onTap: (){
+                             print(index);
+                           },
+                         )
+                     )
                  )
+               ],
              );
            },
            separatorBuilder: (BuildContext context, int index) {

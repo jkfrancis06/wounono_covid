@@ -31,7 +31,7 @@ class UserTopCard extends StatelessWidget {
 
           ),
           color: Colors.white,
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(11.0),
         ),
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 14.0),
         child: Column(
@@ -40,8 +40,8 @@ class UserTopCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                    width: ScreenUtil().setWidth(60.0),
-                    height: ScreenUtil().setHeight(60.0),
+                    width: ScreenUtil().setWidth(55.0),
+                    height: ScreenUtil().setHeight(55.0),
                     child: Image.asset('assets/images/user_icon.png')
                 ),
                 SizedBox(
@@ -67,9 +67,7 @@ class UserTopCard extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: ScreenUtil().setHeight(5.0),
-                      ),
+
                       Container(
                         child: Row(
                           children: [
@@ -87,14 +85,10 @@ class UserTopCard extends StatelessWidget {
                                   .bodyText1
                                   .copyWith(
                                   color: Colors.white,
-                                  fontWeight: FontWeight.bold
                               ),
                             ),
                           ],
                         ),
-                      ),
-                      SizedBox(
-                        height: ScreenUtil().setHeight(5.0),
                       ),
                       Container(
                         child: Row(
@@ -113,14 +107,10 @@ class UserTopCard extends StatelessWidget {
                                   .bodyText1
                                   .copyWith(
                                   color: Colors.white,
-                                  fontWeight: FontWeight.bold
                               ),
                             ),
                           ],
                         ),
-                      ),
-                      SizedBox(
-                        height: ScreenUtil().setHeight(5.0),
                       ),
                       Container(
                         child: Row(
@@ -139,7 +129,6 @@ class UserTopCard extends StatelessWidget {
                                   .bodyText1
                                   .copyWith(
                                   color: Colors.white,
-                                  fontWeight: FontWeight.bold
                               ),
                             ),
                           ],
@@ -180,7 +169,6 @@ class UserTopCard extends StatelessWidget {
                             .bodyText1
                             .copyWith(
                             color: Colors.white,
-                            fontWeight: FontWeight.bold
                         ),
                       ),
                     ],
@@ -207,7 +195,6 @@ class UserTopCard extends StatelessWidget {
                             .bodyText1
                             .copyWith(
                             color: Colors.white,
-                            fontWeight: FontWeight.bold
                         ),
                       ),
                     ],

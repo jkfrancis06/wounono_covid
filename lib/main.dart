@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wounono_covid/models/sizeConfig.dart';
+import 'package:wounono_covid/pages/dashboard.dart';
 import 'package:wounono_covid/pages/home.dart';
 import 'package:wounono_covid/utils/constants.dart';
 
@@ -39,6 +41,10 @@ Route<dynamic> _onGenerateRoute(RouteSettings settings) {
     case "/":
       return MaterialPageRoute(builder: (BuildContext context) {
         return Home();
+      });
+    case "/dashboard":
+      return MaterialPageRoute(builder: (BuildContext context) {
+        return Dashboard();
       });
     default:
       return MaterialPageRoute(builder: (BuildContext context) {

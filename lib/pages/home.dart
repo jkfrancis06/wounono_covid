@@ -2,10 +2,11 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:wounono_covid/pages/dashboard.dart';
-import 'package:wounono_covid/pages/login.dart';
+import 'package:wounono_covid/pages/statistics.dart';
 import 'package:wounono_covid/utils/constants.dart';
-import 'package:wounono_covid/widgets/bottom_bar.dart';
+
+import 'dashboard.dart';
+import 'information.dart';
 
 class Home extends StatefulWidget {
 
@@ -20,7 +21,8 @@ class _HomeState extends State<Home> {
 
   final List<Widget> _pageOptions = [
     Dashboard(),
-    Login()
+    Informations(),
+    Statistics()
   ];
 
   final PageStorageBucket bucket = PageStorageBucket();
@@ -39,12 +41,12 @@ class _HomeState extends State<Home> {
             color: activeIndex == 0 ? Colors.white : Color(0xFFC8C9CB),
           ),
           Icon(
-            FlutterIcons.map_marker_radius_mco,
+            FlutterIcons.info_outline_mdi,
             size: 30.0,
             color: activeIndex == 1 ? Colors.white : Color(0xFFC8C9CB),
           ),
           Icon(
-            FlutterIcons.plus_ant,
+            FlutterIcons.piechart_ant,
             size: 30.0,
             color: activeIndex == 2 ? Colors.white : Color(0xFFC8C9CB),
           ),
