@@ -139,7 +139,6 @@ class _DashboardState extends State<Dashboard> {
                       child: UserVaccineStatus(),
                     ),
                   ),
-                  InternetConnectivity()
                 ],
               ),
             ),

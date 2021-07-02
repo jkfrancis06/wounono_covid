@@ -4,6 +4,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wounono_covid/pages/statistics.dart';
 import 'package:wounono_covid/utils/constants.dart';
+import 'package:wounono_covid/widgets/general/internet_connectivity.dart';
 
 import 'dashboard.dart';
 import 'information.dart';
@@ -122,10 +123,17 @@ class _HomeState extends State<Home> {
         ],
       ),
       backgroundColor: Constants.scaffoldBackgroundColor,
-      body: IndexedStack(
-        index: activeIndex,
-        children: _pageOptions,
-      ),
+      body: Stack(
+        children: [
+          IndexedStack(
+            index: activeIndex,
+            children: _pageOptions,
+          ),
+          InternetConnectivity()
+        ],
+      )
+
+
 
 
     );

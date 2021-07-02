@@ -9,5 +9,9 @@ class Constants {
   static final  defaultFontColor = 17.0;
   static final  leadingFontSize = 18.0;
   static final String appName = "wounono covid-19".toUpperCase();
+
+
   static final String covidStatApiUrl = "https://disease.sh/v3/covid-19/countries/KM?strict=true";
+  static final String covidVaccineApiUrl = "https://disease.sh/v3/covid-19/vaccine/coverage/countries/Comoros?lastdays=1&fullData=false"
+  ;
 }

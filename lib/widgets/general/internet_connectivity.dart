@@ -19,6 +19,15 @@ class _InternetConnectivityState extends State<InternetConnectivity> {
 
   bool connectionStatus;
 
+  final snackBar = SnackBar(
+      content: Text(
+          'No internet connection'
+      ),
+      backgroundColor: Colors.red,
+    duration: Duration(seconds: 3600),
+  );
+
+
   @override
   void initState() {
     super.initState();
@@ -31,13 +40,18 @@ class _InternetConnectivityState extends State<InternetConnectivity> {
 
     return Column(
       children: [
-        Text(' Status: $connectionStatus'),
+        Text(''),
       ],
     );
   }
 
   checkConnection() async {
     isPhoneConnected.listen((event) {
+      if(!event){
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }else{
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      }
       print(event);
       setState(() => connectionStatus = event);
     });
