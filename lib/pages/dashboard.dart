@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wounono_covid/widgets/dashboard/user_health_status.dart';
 import 'package:wounono_covid/widgets/dashboard/user_top_card.dart';
 import 'package:wounono_covid/widgets/dashboard/user_vaccine_status.dart';
+import 'package:wounono_covid/widgets/general/internet_connectivity.dart';
 import 'package:wounono_covid/widgets/travel/checkin_card.dart';
 import 'package:wounono_covid/widgets/travel/travel_history_card.dart';
 
@@ -14,6 +15,12 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   // Track active index
   @override
   Widget build(BuildContext context) {
@@ -132,7 +139,7 @@ class _DashboardState extends State<Dashboard> {
                       child: UserVaccineStatus(),
                     ),
                   ),
-
+                  InternetConnectivity()
                 ],
               ),
             ),

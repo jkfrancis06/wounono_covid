@@ -31,6 +31,7 @@ class _StatisticsState extends State<Statistics> {
 
         // By default, show a loading spinner.
         return CircularProgressIndicator();
+
       },
     );
   }
