@@ -21,7 +21,7 @@ class _InternetConnectivityState extends State<InternetConnectivity> {
 
   final snackBar = SnackBar(
       content: Text(
-          'No internet connection'
+          "Pas d'accès internet"
       ),
       backgroundColor: Colors.red,
     duration: Duration(seconds: 3600),

@@ -21,8 +21,8 @@ class SanitaryProcedureAirportCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                        width: ScreenUtil().setWidth(55.0),
-                        height: ScreenUtil().setHeight(55.0),
+                        width: ScreenUtil().setWidth(40.0),
+                        height: ScreenUtil().setHeight(40.0),
                         child: Image.asset('assets/images/info.png')
                     ),
                     SizedBox(

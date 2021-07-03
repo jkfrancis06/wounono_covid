@@ -2,6 +2,8 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wounono_covid/pages/notifications.dart';
+import 'package:wounono_covid/pages/settings.dart';
 import 'package:wounono_covid/pages/statistics.dart';
 import 'package:wounono_covid/utils/constants.dart';
 import 'package:wounono_covid/widgets/general/internet_connectivity.dart';
@@ -23,7 +25,9 @@ class _HomeState extends State<Home> {
   final List<Widget> _pageOptions = [
     Dashboard(),
     Informations(),
-    Statistics()
+    Statistics(),
+    Notifications(),
+    Settings(),
   ];
 
   final PageStorageBucket bucket = PageStorageBucket();
@@ -52,7 +56,7 @@ class _HomeState extends State<Home> {
             color: activeIndex == 2 ? Colors.white : Color(0xFFC8C9CB),
           ),
           Icon(
-            FlutterIcons.heart_fea,
+            FlutterIcons.bells_ant,
             size: 30.0,
             color: activeIndex == 3 ? Colors.white : Color(0xFFC8C9CB),
           ),
@@ -63,7 +67,6 @@ class _HomeState extends State<Home> {
           ),
         ],
         onTap: (index) {
-          print(index*2);
           setState(() {
             activeIndex = index;
           });

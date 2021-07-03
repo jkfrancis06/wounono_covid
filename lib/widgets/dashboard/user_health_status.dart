@@ -29,7 +29,7 @@ class UserHealthStatus extends StatelessWidget {
 
 
      return Container(
-       height: MediaQuery.of(context).size.height/5.5,
+       height: ScreenUtil().setHeight(120),
        child: ListView.separated(
            physics: BouncingScrollPhysics(),
            padding: EdgeInsets.symmetric(horizontal: 5.0),
@@ -51,10 +51,10 @@ class UserHealthStatus extends StatelessWidget {
                      crossAxisAlignment: CrossAxisAlignment.start,
                      children: [
                        Container(
-                         width: ScreenUtil().setWidth(80.0),
-                         height: ScreenUtil().setHeight(80.0),
+                         width: ScreenUtil().setWidth(70.0),
+                         height: ScreenUtil().setHeight(70.0),
                          child: Image.asset(
-                             _getQrImage(healthStatus[index].testSatuts)
+                             _getQrImage(healthStatus[index]  .testSatuts)
                          ),
                        ),
                        SizedBox(

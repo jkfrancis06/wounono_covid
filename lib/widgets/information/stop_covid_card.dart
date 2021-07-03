@@ -20,13 +20,9 @@ class StopCovidCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                        width: ScreenUtil().setWidth(55.0),
-                        height: ScreenUtil().setHeight(55.0),
-                        child: Container(
-                            width: ScreenUtil().setWidth(55.0),
-                            height: ScreenUtil().setHeight(55.0),
-                            child: Image.asset('assets/images/stop_covid.png')
-                        ),
+                        width: ScreenUtil().setWidth(40.0),
+                        height: ScreenUtil().setHeight(40.0),
+                        child: Image.asset('assets/images/stop_covid.png')
                     ),
                     SizedBox(
                       width: ScreenUtil().setWidth(5.0),

@@ -7,7 +7,6 @@ import 'package:wounono_covid/utils/constants.dart';
 
 Future<CovidStats> fetchCovidStat() async {
   final response = await http.get(Uri.parse(Constants.covidStatApiUrl));
-  print('echo');
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.

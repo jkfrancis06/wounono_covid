@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:wounono_covid/models/sizeConfig.dart';
 import 'package:wounono_covid/pages/dashboard.dart';
 import 'package:wounono_covid/pages/home.dart';
+import 'package:wounono_covid/pages/settings/user_informations.dart';
 import 'package:wounono_covid/utils/constants.dart';
 
 void main() {
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
       designSize: Size(375, 812),
       builder: () => MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: "Flutter Laundry UI",
+        title: "Wounono Covid-19",
         theme: ThemeData(
           scaffoldBackgroundColor: Constants.scaffoldBackgroundColor,
           visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -45,6 +46,10 @@ Route<dynamic> _onGenerateRoute(RouteSettings settings) {
     case "/dashboard":
       return MaterialPageRoute(builder: (BuildContext context) {
         return Dashboard();
+      });
+    case "/user-informations":
+      return MaterialPageRoute(builder: (BuildContext context) {
+        return UserInformations();
       });
     default:
       return MaterialPageRoute(builder: (BuildContext context) {
