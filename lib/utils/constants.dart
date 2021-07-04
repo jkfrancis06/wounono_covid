@@ -12,7 +12,8 @@ class Constants {
   static final String appName = "wounono covid-19".toUpperCase();
 
 
-  static final String covidStatApiUrl = "https://disease.sh/v3/covid-19/countries/KM?strict=true";
-  static final String covidVaccineApiUrl = "https://disease.sh/v3/covid-19/vaccine/coverage/countries/Comoros?lastdays=1&fullData=false"
-  ;
+  static final String STATS_API_URL = "https://disease.sh/v3/covid-19/countries/KM?strict=true";
+  static final String VACCINE_API_URL = "https://disease.sh/v3/covid-19/vaccine/coverage/countries/Comoros?lastdays=1&fullData=false";
+  static final String COUNTRY_LIST_API = "https://restcountries.eu/rest/v2/all";
+
 }

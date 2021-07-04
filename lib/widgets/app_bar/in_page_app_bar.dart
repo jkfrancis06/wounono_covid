@@ -20,7 +20,7 @@ in_page_app_bar(context,page_name){
               ),
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.01,
+              width: MediaQuery.of(context).size.width * 0.03,
             ),
             Text(
               page_name,

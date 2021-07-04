@@ -461,10 +461,12 @@ class _StatisticsState extends State<Statistics> {
   }
 
   _getVaccineDosesFromMap(Map data) {
-      var doses;
-      data.forEach(
-              (k,v) => doses = v
-      );
+      var doses = 0;
+      if(data != null){
+        data.forEach(
+                (k,v) => doses = v
+        );
+      }
       return doses;
   }
 
