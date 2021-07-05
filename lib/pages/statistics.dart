@@ -32,11 +32,10 @@ class _StatisticsState extends State<Statistics> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Future.wait([futureCovidStats,futureVaccineStats]).catchError((e){ print('api error'); }),
+      future: Future.wait([futureCovidStats,futureVaccineStats]).catchError((e){  }),
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
           if(snapshot.connectionState == ConnectionState.done){
             if(snapshot.hasData && snapshot.data[0]!= null && snapshot.data[1]!= null){
-              print(' data');
               return RefreshIndicator(
                 color: Constants.primaryColor,
                 onRefresh: _pullRefresh,

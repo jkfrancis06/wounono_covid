@@ -54,7 +54,7 @@ class UserHealthStatus extends StatelessWidget {
                          width: ScreenUtil().setWidth(70.0),
                          height: ScreenUtil().setHeight(70.0),
                          child: Image.asset(
-                             _getQrImage(healthStatus[index]  .testSatuts)
+                             _getQrImage(healthStatus[index].testSatuts)
                          ),
                        ),
                        SizedBox(

@@ -46,6 +46,8 @@ dependencies:
   country_code_picker: ^2.0.2
   country_list_pick: ^1.0.1+4
   shared_preferences: ^2.0.6
+  cached_network_image: ^2.5.1
+  flutter_svg: ^0.22.0
 
 flutter_native_splash:
   color: "#32b3a4"
