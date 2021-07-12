@@ -132,7 +132,7 @@ class _HomeState extends State<Home> {
       ),
       backgroundColor: Constants.scaffoldBackgroundColor,
       body: WillPopScope(
-        onWillPop: onWillPop,
+        onWillPop: showExitPopup,
         child:
           Stack(
             children: [
@@ -152,15 +152,35 @@ class _HomeState extends State<Home> {
   }
 
 
-  Future<bool> onWillPop() {
-    DateTime now = DateTime.now();
-    if (currentBackPressTime == null ||
-        now.difference(currentBackPressTime) > Duration(seconds: 2)) {
-      currentBackPressTime = now;
-      Fluttertoast.showToast(msg: 'Taper deux fois pour quitter');
-      return Future.value(false);
-    }
-    return SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+  Future<bool> showExitPopup() async {
+    return await showDialog( //show confirm dialogue
+      //the return value will be from "Yes" or "No" options
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Quitter'),
+        content: Text('Voulez vous quitter l\'application?'),
+        actions:[
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                primary: Constants.primaryColor
+            ),
+            onPressed: () => Navigator.of(context).pop(false),
+            //return false when click on "NO"
+            child:Text('Non'),
+          ),
+
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                primary: Constants.primaryColor
+            ),
+            onPressed: () => SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
+            //return true when click on "Yes"
+            child:Text('Oui'),
+          ),
+
+        ],
+      ),
+    )??false; //if showDialouge had returned null, then return false
   }
 
 }

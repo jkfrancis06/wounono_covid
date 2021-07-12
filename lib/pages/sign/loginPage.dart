@@ -176,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               InkWell(
                                 onTap: (){
-                                  nextScreen(context, '/');
+                                  nextScreen(context, '/home');
                                 },
                                 child: Container(
                                   width: double.infinity,

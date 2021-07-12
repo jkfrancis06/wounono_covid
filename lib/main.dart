@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
           textTheme: GoogleFonts.poppinsTextTheme(),
         ),
-        initialRoute: "/start",
+        initialRoute: "/",
         onGenerateRoute: _onGenerateRoute,
       ),
     );
@@ -55,11 +55,11 @@ class MyApp extends StatelessWidget {
 
 Route<dynamic> _onGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
-    case "/start":
+    case "/":
       return MaterialPageRoute(builder: (BuildContext context) {
         return Startup();
       });
-    case "/":
+    case "/home":
       return MaterialPageRoute(builder: (BuildContext context) {
         return Home();
       });
@@ -97,7 +97,7 @@ Route<dynamic> _onGenerateRoute(RouteSettings settings) {
       });
     default:
       return MaterialPageRoute(builder: (BuildContext context) {
-        return Home();
+        return Startup();
       });
   }
 }
