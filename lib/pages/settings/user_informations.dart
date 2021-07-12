@@ -1,15 +1,11 @@
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:smart_select/smart_select.dart';
 import 'package:wounono_covid/utils/constants.dart';
-import 'package:wounono_covid/utils/helper.dart';
 import 'package:wounono_covid/widgets/app_bar/in_page_app_bar.dart';
-import 'package:country_list_pick/country_list_pick.dart';
 
 
 
@@ -74,10 +70,14 @@ class _UserInformationsState extends State<UserInformations> {
                                 decoration: InputDecoration(
                                   fillColor: Colors.white,
                                   filled: true,
+                                  suffixIcon: Icon(
+                                      FlutterIcons.user_ant,
+                                    color: Colors.grey,
+                                  ),
                                   contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                                   hoverColor: Constants.primaryColor,
                                   border: OutlineInputBorder(),
-                                  hintText: 'Entrer votre nom ici',
+                                  hintText: 'Entrer votre nom',
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Colors.transparent,
@@ -125,7 +125,12 @@ class _UserInformationsState extends State<UserInformations> {
                                   contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                                   hoverColor: Constants.primaryColor,
                                   border: OutlineInputBorder(),
-                                  hintText: 'Enter votre prenom ici',
+                                  suffixIcon: Icon(
+                                      FlutterIcons.user_ant,
+                                    color: Colors.grey,
+
+                                  ),
+                                  hintText: 'Entrer votre prenom',
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Colors.transparent,
@@ -208,6 +213,10 @@ class _UserInformationsState extends State<UserInformations> {
                           decoration: InputDecoration(
                             fillColor: Colors.white,
                             filled: true,
+                            suffixIcon: Icon(
+                              FlutterIcons.calendar_ant,
+                              color: Colors.grey,
+                            ),
                             contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                             hoverColor: Constants.primaryColor,
                             border: OutlineInputBorder(),
@@ -229,12 +238,22 @@ class _UserInformationsState extends State<UserInformations> {
                                 context: context,
                                 firstDate: DateTime(1900),
                                 initialDate: currentValue ?? DateTime.now(),
+                                locale : const Locale("fr","FR"),
                                 lastDate: DateTime.now(),
-                                builder: (context, child) => Localizations.override(
-                                  context: context,
-                                  locale: Locale('fr'),
-                                  child: child,
-                                ),
+                                builder: (BuildContext context, Widget child) {
+                                  return Theme(
+                                    data: ThemeData.light().copyWith(
+                                      colorScheme: ColorScheme.light(
+                                        primary: Constants.primaryColor,
+                                        onPrimary: Colors.white,
+                                        surface: Constants.primaryColor,
+                                        onSurface: Colors.black,
+                                      ),
+                                      dialogBackgroundColor:Colors.white,
+                                    ),
+                                    child: child,
+                                  );
+                                },
                             );
                           },
                         ),
@@ -262,12 +281,16 @@ class _UserInformationsState extends State<UserInformations> {
                           Container(
                               child: TextField(
                                 onTap: (){
-                                  nextScreen(context, "/nationalite");
+                                  _navigateAndDisplaySelection(context);
                                 },
                                 decoration: InputDecoration(
                                   suffixIcon: Icon(
                                     Icons.arrow_drop_down_circle_outlined,
                                     color: Colors.black,
+                                  ),
+                                  prefixIcon: Icon(
+                                    FlutterIcons.flag_ant,
+                                    color: Colors.grey,
                                   ),
                                   fillColor: Colors.white,
                                   filled: true,
@@ -302,7 +325,216 @@ class _UserInformationsState extends State<UserInformations> {
                       )
                   ),
 
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12.0,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Numero de piece d'identité : ",
+                          ),
+                          SizedBox(
+                            height: ScreenUtil().setHeight(5.0),
+                          ),
+                          Container(
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  suffixIcon: Icon(
+                                    Icons.assignment_ind_outlined,
+                                    color: Colors.grey,
+                                  ),
+                                  hintText: 'Numéro de pièce',
+                                  contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                                  hoverColor: Constants.primaryColor,
+                                  border: OutlineInputBorder(),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                    ),
+                                  ),
+                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    .copyWith(
+                                  color: Colors.black,
+                                ),
+                                cursorColor: Colors.black,
+                              )
+                          )
+                        ],
+                      )
+                  ),
 
+
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+
+
+                  Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12.0,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Numero de téléphone : ",
+                          ),
+                          SizedBox(
+                            height: ScreenUtil().setHeight(5.0),
+                          ),
+                          Container(
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  suffixIcon: Icon(
+                                    Icons.phone,
+                                    color: Colors.grey,
+                                  ),
+                                  hintText: "Numéro de telephone",
+                                  contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                                  hoverColor: Constants.primaryColor,
+                                  border: OutlineInputBorder(),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                    ),
+                                  ),
+                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    .copyWith(
+                                  color: Colors.black,
+                                ),
+                                cursorColor: Colors.black,
+                              )
+                          )
+                        ],
+                      )
+                  ),
+
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+
+                  Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12.0,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Adresse email : ",
+                          ),
+                          SizedBox(
+                            height: ScreenUtil().setHeight(5.0),
+                          ),
+                          Container(
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  suffixIcon: Icon(
+                                    Icons.email_outlined,
+                                    color: Colors.grey,
+                                  ),
+                                  hintText: 'Saisir votre adresse email',
+                                  contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                                  hoverColor: Constants.primaryColor,
+                                  border: OutlineInputBorder(),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                    ),
+                                  ),
+                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    .copyWith(
+                                  color: Colors.black,
+                                ),
+                                cursorColor: Colors.black,
+                              )
+                          )
+                        ],
+                      )
+                  ),
+
+
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+
+                  Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12.0,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          InkWell(
+                            child: Container(
+                              width: double.infinity,
+                              height: ScreenUtil().setHeight(48.0),
+                              decoration: BoxDecoration(
+                                color: Constants.primaryColor,
+                                borderRadius: BorderRadius.circular(8.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color.fromRGBO(169, 176, 185, 0.42),
+                                    spreadRadius: 0,
+                                    blurRadius: 8.0,
+                                    offset: Offset(0, 2),
+                                  )
+                                ],
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'Mettre a jour',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      )
+                  ),
+
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
                 ],
               ),
             )
@@ -311,4 +543,14 @@ class _UserInformationsState extends State<UserInformations> {
       )
     );
   }
+
+  void _navigateAndDisplaySelection(BuildContext context) async {
+    // Navigator.push returns a Future that completes after calling
+    // Navigator.pop on the Selection Screen.
+    final result = await Navigator.of(context).pushNamed('/nationalite');
+
+    print(result);
+
+  }
+
 }

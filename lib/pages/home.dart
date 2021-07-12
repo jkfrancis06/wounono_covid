@@ -1,7 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wounono_covid/pages/notifications.dart';
 import 'package:wounono_covid/pages/settings.dart';
 import 'package:wounono_covid/pages/statistics.dart';
@@ -21,6 +23,9 @@ class _HomeState extends State<Home> {
 
   // Track active index
   int activeIndex = 0;
+
+  DateTime currentBackPressTime;
+
 
   final List<Widget> _pageOptions = [
     Dashboard(),
@@ -126,14 +131,18 @@ class _HomeState extends State<Home> {
         ],
       ),
       backgroundColor: Constants.scaffoldBackgroundColor,
-      body: Stack(
-        children: [
-          IndexedStack(
-            index: activeIndex,
-            children: _pageOptions,
+      body: WillPopScope(
+        onWillPop: onWillPop,
+        child:
+          Stack(
+            children: [
+              IndexedStack(
+                index: activeIndex,
+                children: _pageOptions,
+              ),
+              InternetConnectivity()
+            ],
           ),
-          InternetConnectivity()
-        ],
       )
 
 
@@ -142,5 +151,16 @@ class _HomeState extends State<Home> {
     );
   }
 
+
+  Future<bool> onWillPop() {
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null ||
+        now.difference(currentBackPressTime) > Duration(seconds: 2)) {
+      currentBackPressTime = now;
+      Fluttertoast.showToast(msg: 'Taper deux fois pour quitter');
+      return Future.value(false);
+    }
+    return SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+  }
 
 }

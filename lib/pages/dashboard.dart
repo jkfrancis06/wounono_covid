@@ -139,6 +139,10 @@ class _DashboardState extends State<Dashboard> {
                       child: UserVaccineStatus(),
                     ),
                   ),
+
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
                 ],
               ),
             ),

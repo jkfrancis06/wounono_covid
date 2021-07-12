@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wounono_covid/utils/constants.dart';
+import 'package:wounono_covid/utils/helper.dart';
 
 class CheckinCard extends StatelessWidget {
 
@@ -82,7 +83,7 @@ class CheckinCard extends StatelessWidget {
                 child: new InkWell(
                   borderRadius: BorderRadius.circular(11.0),
                   onTap: () => {
-                    print('Checkin card')
+                    nextScreen(context, '/check-in')
                   },
                 )
             )

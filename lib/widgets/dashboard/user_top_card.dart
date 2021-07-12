@@ -217,7 +217,6 @@ class UserTopCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(11.0),
                   onTap: () => {
                     nextScreen(context, "/user-informations")
-
                   },
                 )
             )
