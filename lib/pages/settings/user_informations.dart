@@ -1,3 +1,4 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -26,6 +27,8 @@ class _UserInformationsState extends State<UserInformations> {
 
   final format = DateFormat("dd-MM-yyyy");
   final myController = TextEditingController();
+
+  FocusNode myFocusNode = new FocusNode();
 
 
 
@@ -281,7 +284,38 @@ class _UserInformationsState extends State<UserInformations> {
                           Container(
                               child: TextField(
                                 onTap: (){
-                                  _navigateAndDisplaySelection(context);
+                                 // _navigateAndDisplaySelection(context);
+                                  showCountryPicker(
+                                    context: context,
+                                    showPhoneCode: true, // optional. Shows phone code before the country name.
+                                    onSelect: (Country country) {
+                                      print('Select country: ${country}');
+                                    },
+                                    countryListTheme: CountryListThemeData(
+                                      // Optional. Sets the border radius for the bottomsheet.
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(40.0),
+                                        topRight: Radius.circular(40.0),
+                                      ),
+                                      // Optional. Styles the search field.
+                                      inputDecoration: InputDecoration(
+                                        labelText: 'Rechercher',
+                                        labelStyle: TextStyle(
+                                            color: myFocusNode.hasFocus ? Colors.blue : Colors.black
+                                        ),
+                                        focusColor: Colors.red,
+                                        fillColor: Colors.white,
+                                        prefixIcon: const Icon(
+                                            Icons.search,
+                                            color: Color(0xff3d8e33),
+                                        ),
+                                        focusedBorder:OutlineInputBorder(
+                                          borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                                          borderRadius: BorderRadius.circular(25.0),
+                                        ),
+                                      ),
+                                    ),
+                                  );
                                 },
                                 decoration: InputDecoration(
                                   suffixIcon: Icon(

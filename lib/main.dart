@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:wounono_covid/models/sizeConfig.dart';
 import 'package:wounono_covid/pages/dashboard.dart';
 import 'package:wounono_covid/pages/home.dart';
+import 'package:wounono_covid/pages/introScreen.dart';
+import 'package:wounono_covid/pages/location.dart';
 import 'package:wounono_covid/pages/settings/country_list.dart';
 import 'package:wounono_covid/pages/settings/user_informations.dart';
 import 'package:wounono_covid/pages/sign/loginPage.dart';
+import 'package:wounono_covid/pages/sign/signIn.dart';
 import 'package:wounono_covid/pages/startup.dart';
 import 'package:wounono_covid/pages/travel/checkInPage.dart';
 import 'package:wounono_covid/pages/travel/personnalInfo.dart';
@@ -29,15 +31,17 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+
     return ScreenUtilInit(
       designSize: Size(375, 812),
       builder: () => MaterialApp(
-        localizationsDelegates: GlobalMaterialLocalizations.delegates,
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
         supportedLocales: [
-          const Locale('en', 'US'), // American English
-          const Locale('he', 'IL'), // Israeli Hebrew
-          const Locale('fr', 'FR'), // francais France
-          // ...
+          const Locale('fr')
         ],
         debugShowCheckedModeBanner: false,
         title: "Unono Covid-19",
@@ -46,18 +50,25 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
           textTheme: GoogleFonts.poppinsTextTheme(),
         ),
-        initialRoute: "/",
+        initialRoute: "/welcome",
         onGenerateRoute: _onGenerateRoute,
       ),
     );
   }
 }
 
+
+
+
 Route<dynamic> _onGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
     case "/":
       return MaterialPageRoute(builder: (BuildContext context) {
         return Startup();
+      });
+    case "/welcome":
+      return MaterialPageRoute(builder: (BuildContext context) {
+        return IntroScreen();
       });
     case "/home":
       return MaterialPageRoute(builder: (BuildContext context) {
@@ -70,6 +81,10 @@ Route<dynamic> _onGenerateRoute(RouteSettings settings) {
     case "/login":
       return MaterialPageRoute(builder: (BuildContext context) {
         return LoginPage();
+      });
+    case "/sign-in":
+      return MaterialPageRoute(builder: (BuildContext context) {
+        return SignIn();
       });
     case "/user-informations":
       return MaterialPageRoute(builder: (BuildContext context) {
@@ -94,6 +109,10 @@ Route<dynamic> _onGenerateRoute(RouteSettings settings) {
     case "/parentInfoDialog":
       return MaterialPageRoute(builder: (BuildContext context) {
         return ParentInfoDialog();
+      });
+    case "/location":
+      return MaterialPageRoute(builder: (BuildContext context) {
+        return Location();
       });
     default:
       return MaterialPageRoute(builder: (BuildContext context) {

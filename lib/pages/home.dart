@@ -4,10 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:wounono_covid/pages/notifications.dart';
 import 'package:wounono_covid/pages/settings.dart';
 import 'package:wounono_covid/pages/statistics.dart';
 import 'package:wounono_covid/utils/constants.dart';
+import 'package:wounono_covid/utils/helper.dart';
 import 'package:wounono_covid/widgets/general/internet_connectivity.dart';
 
 import 'dashboard.dart';
@@ -20,6 +22,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+
+  @override
+  initState() {
+    super.initState();
+    _checkPermission();
+
+  }
 
   // Track active index
   int activeIndex = 0;
@@ -109,7 +119,9 @@ class _HomeState extends State<Home> {
             child: Row(
               children: [
                 OutlinedButton(
-                    onPressed: null,
+                    onPressed: (){
+                      nextScreen(context, '/location');
+                    },
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0))),
                       backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
@@ -181,6 +193,20 @@ class _HomeState extends State<Home> {
         ],
       ),
     )??false; //if showDialouge had returned null, then return false
+  }
+
+  _checkPermission()async{
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.location,
+      Permission.storage,
+      Permission.manageExternalStorage,
+    ].request();
+    var status = await Permission.storage.status;
+    if (!status.isGranted) {
+      await Permission.storage.request();
+    }
+    print(status);
+    print(statuses[Permission.location]);
   }
 
 }
