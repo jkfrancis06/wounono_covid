@@ -4,6 +4,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:wounono_covid/models/consumer.dart';
+import 'package:wounono_covid/pages/verification/pinCodeVerificationScreen.dart';
 import 'package:wounono_covid/utils/constants.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -32,15 +33,17 @@ class _SignInState extends State<SignInScreen> {
 
   FocusNode myFocusNode = new FocusNode();
 
-  final TextEditingController controller = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
   String initialCountry = 'KM';
   PhoneNumber number = PhoneNumber(isoCode: 'KM');
 
   final GlobalKey<FormBuilderState> _signInFormKey = GlobalKey<FormBuilderState>();
 
-  Consumer consumer;
+  var consumer = new Consumer();
 
   Country _selectedCountry;
+
+  PhoneNumber _selectedPhoneNumber;
 
 
   @override
@@ -632,7 +635,7 @@ class _SignInState extends State<SignInScreen> {
                                           autoValidateMode: AutovalidateMode.disabled,
                                           selectorTextStyle: TextStyle(color: Colors.black),
                                           initialValue: number,
-                                          textFieldController: controller,
+                                          textFieldController: _phoneNumberController,
                                           formatInput: true,
                                           locale: 'fr-FR',
                                           inputDecoration: InputDecoration(
@@ -661,7 +664,7 @@ class _SignInState extends State<SignInScreen> {
                                           TextInputType.numberWithOptions(signed: true, decimal: true),
                                           inputBorder: OutlineInputBorder(),
                                           onSaved: (PhoneNumber number) {
-                                            print('On Saved: $number');
+                                            _selectedPhoneNumber = number;
                                           },
                                         ),
                                       ],
@@ -687,14 +690,24 @@ class _SignInState extends State<SignInScreen> {
                                         InkWell(
                                           onTap: (){
                                             if (_signInFormKey.currentState?.saveAndValidate() ?? false) {
+                                                print(_signInFormKey.currentState?.value);
                                                 consumer.firstName = _signInFormKey.currentState?.value['firstname'];
                                                 consumer.lastName = _signInFormKey.currentState?.value['lastname'];
                                                 consumer.gender = _signInFormKey.currentState?.value['gender'];
                                                 DateFormat _formatter = DateFormat('yyyy-MM-dd');
                                                 consumer.birthDate = _formatter.format(_signInFormKey.currentState?.value['birthDate']);
                                                 consumer.country = _selectedCountry.countryCode;
-                                                consumer.phoneNumber = _signInFormKey.currentState?.value['phoneNumber'];
+                                                consumer.phoneNumber = _selectedPhoneNumber.phoneNumber;
                                                 consumer.passportNumber = _signInFormKey.currentState?.value['passportNumber'];
+                                                consumer.cardNumber = _signInFormKey.currentState?.value['cardNumber'];
+                                                print(consumer);
+                                                _showConfirmPopup(consumer.phoneNumber);
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) => PinCodeVerificationScreen(phoneNumber: consumer.phoneNumber),
+                                                  ),
+                                                );
                                             } else {
                                               print('Invalid');
                                             }
@@ -745,6 +758,58 @@ class _SignInState extends State<SignInScreen> {
         ),
       ),
     );
+  }
+
+  Future<bool> _showConfirmPopup(phoneNumber) async {
+    return await showDialog( //show confirm dialogue
+      //the return value will be from "Yes" or "No" options
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Confirmer'),
+        content: Container(
+          child:  Column(
+            children: [
+              Text("Vous avez saisi le numero de téléphone suivant"),
+              SizedBox(
+                height: ScreenUtil().setHeight(8.0),
+              ),
+              Text(
+                phoneNumber,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold
+                ),
+              ),
+              SizedBox(
+                height: ScreenUtil().setHeight(8.0),
+              ),
+              Text("Confirmez-vous que ce numéro a été bien saisi?"),
+            ],
+          ),
+        ),
+        actions:[
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                primary: Constants.primaryColor
+            ),
+            onPressed: () => Navigator.of(context).pop(false),
+            //return false when click on "NO"
+            child:Text('Non'),
+          ),
+
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                primary: Constants.primaryColor
+            ),
+            onPressed:(){
+
+            },
+            //return true when click on "Yes"
+            child:Text('Oui'),
+          ),
+
+        ],
+      ),
+    )??false; //if showDialouge had returned null, then return false
   }
 
   Widget _displayIdCard(){

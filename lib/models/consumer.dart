@@ -4,16 +4,16 @@ import 'dart:convert';
 import 'package:country_picker/country_picker.dart';
 
 class Consumer {
-   int id;
-   String firstName;
-   String lastName;
-   int gender;
-   String birthDate;
-   String country;
-   int phoneNumber;
-   String passportNumber;
-   String cardNumber;
-   String email;
+   var id;
+   var firstName;
+   var lastName;
+   var gender;
+   var birthDate;
+   var country;
+   var phoneNumber;
+   var passportNumber;
+   var cardNumber;
+   var email;
 
   Consumer({this.id, this.firstName, this.lastName, this.gender, this.birthDate, this.country, this.phoneNumber, this.passportNumber, this.cardNumber, this.email});
 
