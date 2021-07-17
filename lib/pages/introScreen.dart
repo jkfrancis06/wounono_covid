@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:wounono_covid/pages/startup.dart';
+import 'package:wounono_covid/pages/startupScreen.dart';
 import 'package:wounono_covid/utils/constants.dart';
 
 
@@ -17,7 +17,7 @@ class _IntroScreenState extends State<IntroScreen> {
   void _onIntroEnd(context) {
     Navigator
         .of(context)
-        .pushReplacement(MaterialPageRoute(builder: (BuildContext context) => Startup()));
+        .pushReplacement(MaterialPageRoute(builder: (BuildContext context) => StartupScreen()));
 
   }
 

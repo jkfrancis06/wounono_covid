@@ -7,13 +7,13 @@ import 'package:wounono_covid/utils/constants.dart';
 import 'package:wounono_covid/widgets/travel/Tabs/familyScreen.dart';
 import 'package:wounono_covid/widgets/travel/Tabs/personnalScreen.dart';
 
-class PersonnalInfo extends StatefulWidget {
+class PersonnalInfoScreen extends StatefulWidget {
 
   @override
   _PersonnalInfoState createState() => _PersonnalInfoState();
 }
 
-class _PersonnalInfoState extends State<PersonnalInfo> {
+class _PersonnalInfoState extends State<PersonnalInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

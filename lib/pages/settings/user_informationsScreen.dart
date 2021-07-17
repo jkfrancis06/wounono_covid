@@ -11,12 +11,12 @@ import 'package:wounono_covid/widgets/app_bar/in_page_app_bar.dart';
 
 
 
-class UserInformations extends StatefulWidget {
+class UserInformationsScreen extends StatefulWidget {
   @override
   _UserInformationsState createState() => _UserInformationsState();
 }
 
-class _UserInformationsState extends State<UserInformations> {
+class _UserInformationsState extends State<UserInformationsScreen> {
 
   int value = 0;
   List<S2Choice<int>> options = [

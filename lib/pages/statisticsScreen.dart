@@ -10,13 +10,13 @@ import 'package:wounono_covid/utils/date_helper.dart';
 import 'package:wounono_covid/utils/diplay_error_toast.dart';
 import 'package:wounono_covid/utils/number_display.dart';
 
-class Statistics extends StatefulWidget {
+class StatisticsScreen extends StatefulWidget {
 
   @override
   _StatisticsState createState() => _StatisticsState();
 }
 
-class _StatisticsState extends State<Statistics> {
+class _StatisticsState extends State<StatisticsScreen> {
   Future<CovidStats> futureCovidStats;
   Future<VaccineStat> futureVaccineStats;
   int vaccineDoses;

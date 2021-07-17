@@ -5,9 +5,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wounono_covid/utils/constants.dart';
 import 'package:wounono_covid/utils/helper.dart';
 
-class Startup extends StatelessWidget {
+class StartupScreen extends StatelessWidget {
 
-  DateTime _lastPressedAt; //last click time
 
 
   @override
@@ -130,7 +129,7 @@ class Startup extends StatelessWidget {
                             ),
                             child: Center(
                               child: Text(
-                                "S'inscrire",
+                                "Creer un compte",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16.0,

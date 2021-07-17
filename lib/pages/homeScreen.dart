@@ -3,17 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:wounono_covid/pages/notifications.dart';
-import 'package:wounono_covid/pages/settings.dart';
-import 'package:wounono_covid/pages/statistics.dart';
+import 'package:wounono_covid/pages/dashboardScreen.dart';
+import 'package:wounono_covid/pages/informationScreen.dart';
+import 'package:wounono_covid/pages/notificationsScreen.dart';
+import 'package:wounono_covid/pages/settingsScreen.dart';
+import 'package:wounono_covid/pages/statisticsScreen.dart';
 import 'package:wounono_covid/utils/constants.dart';
 import 'package:wounono_covid/utils/helper.dart';
 import 'package:wounono_covid/widgets/general/internet_connectivity.dart';
 
-import 'dashboard.dart';
-import 'information.dart';
 
 class Home extends StatefulWidget {
 
@@ -38,11 +37,11 @@ class _HomeState extends State<Home> {
 
 
   final List<Widget> _pageOptions = [
-    Dashboard(),
-    Informations(),
-    Statistics(),
-    Notifications(),
-    Settings(),
+    DashboardScreen(),
+    InformationsScreen(),
+    StatisticsScreen(),
+    NotificationsScreen(),
+    SettingsScreen(),
   ];
 
   final PageStorageBucket bucket = PageStorageBucket();

@@ -8,7 +8,7 @@ import 'package:wounono_covid/widgets/settings/rating_card.dart';
 import 'package:wounono_covid/widgets/settings/share_card.dart';
 import 'package:wounono_covid/widgets/settings/user_settings_card.dart';
 
-class Settings extends StatelessWidget {
+class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {

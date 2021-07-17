@@ -6,15 +6,15 @@ import 'package:wounono_covid/widgets/general/internet_connectivity.dart';
 import 'package:wounono_covid/widgets/travel/checkin_card.dart';
 import 'package:wounono_covid/widgets/travel/travel_history_card.dart';
 
-class Dashboard extends StatefulWidget {
+class DashboardScreen extends StatefulWidget {
 
-  const Dashboard({Key key}) : super(key: key);
+  const DashboardScreen({Key key}) : super(key: key);
 
   @override
   _DashboardState createState() => _DashboardState();
 }
 
-class _DashboardState extends State<Dashboard> {
+class _DashboardState extends State<DashboardScreen> {
 
   @override
   void initState() {

@@ -6,13 +6,13 @@ import 'package:wounono_covid/widgets/app_bar/in_page_app_bar.dart';
 import 'package:intl/intl.dart';
 
 
-class TravelInfoForm extends StatefulWidget {
+class TravelInfoFormScreen extends StatefulWidget {
 
   @override
   _TravelInfoFormState createState() => _TravelInfoFormState();
 }
 
-class _TravelInfoFormState extends State<TravelInfoForm> {
+class _TravelInfoFormState extends State<TravelInfoFormScreen> {
 
   final format = DateFormat("dd-MM-yyyy");
 

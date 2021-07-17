@@ -9,13 +9,13 @@ import 'package:wounono_covid/utils/helper.dart';
 import 'package:wounono_covid/widgets/app_bar/in_page_app_bar.dart';
 
 
-class CheckInPage extends StatefulWidget {
+class CheckInScreen extends StatefulWidget {
 
   @override
   _CheckInPageState createState() => _CheckInPageState();
 }
 
-class _CheckInPageState extends State<CheckInPage> {
+class _CheckInPageState extends State<CheckInScreen> {
 
   Future<List<Airport>> futureAirports;
   List<Airport> _airports = [];

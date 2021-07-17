@@ -4,13 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wounono_covid/utils/constants.dart';
 import 'package:wounono_covid/utils/helper.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginScreen extends StatefulWidget {
 
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

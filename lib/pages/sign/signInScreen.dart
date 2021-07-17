@@ -10,13 +10,17 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 
 
-class SignIn extends StatefulWidget {
+class SignInScreen extends StatefulWidget {
+
+  final int consumerType;
+
+  SignInScreen({Key key, this.consumerType}) : super(key: key);
 
   @override
   _SignInState createState() => _SignInState();
 }
 
-class _SignInState extends State<SignIn> {
+class _SignInState extends State<SignInScreen> {
 
   int value = 0;
 
@@ -37,6 +41,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.consumerType);
     return Scaffold(
       backgroundColor: Constants.primaryColor,
       body: SafeArea(
@@ -528,6 +533,9 @@ class _SignInState extends State<SignIn> {
                                     )
                                 ),
 
+                                if (widget.consumerType == 1) _displayIdCard(),
+
+
                                 SizedBox(
                                   height: MediaQuery.of(context).size.height * 0.02,
                                 ),
@@ -539,7 +547,7 @@ class _SignInState extends State<SignIn> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "Numero de carte d'identité : ",
+                                          "Numero de carte passport : ",
                                         ),
                                         SizedBox(
                                           height: ScreenUtil().setHeight(5.0),
@@ -547,17 +555,17 @@ class _SignInState extends State<SignIn> {
                                         Container(
                                             child: FormBuilderTextField(
                                               validator: FormBuilderValidators.compose([
-                                                FormBuilderValidators.required(context),
+                                                if (widget.consumerType>1) FormBuilderValidators.required(context) ,
                                               ]),
-                                              name: 'cardNumber',
+                                              name: 'passportNumber',
                                               decoration: InputDecoration(
                                                 fillColor: Constants.scaffoldBackgroundColor,
                                                 filled: true,
                                                 suffixIcon: Icon(
-                                                  Icons.assignment_ind_outlined,
+                                                  FlutterIcons.passport_faw5s,
                                                   color: Colors.grey,
                                                 ),
-                                                hintText: 'Numéro de carte',
+                                                hintText: 'Numéro de passport',
                                                 contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                                                 hoverColor: Constants.primaryColor,
                                                 border: OutlineInputBorder(),
@@ -723,6 +731,66 @@ class _SignInState extends State<SignIn> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _displayIdCard(){
+    return Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: 12.0,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
+            ),
+
+            Text(
+              "Numero de carte d'identité : ",
+            ),
+            SizedBox(
+              height: ScreenUtil().setHeight(5.0),
+            ),
+            Container(
+                child: FormBuilderTextField(
+                  validator: FormBuilderValidators.compose([
+                    FormBuilderValidators.required(context),
+                  ]),
+                  name: 'cardNumber',
+                  decoration: InputDecoration(
+                    fillColor: Constants.scaffoldBackgroundColor,
+                    filled: true,
+                    suffixIcon: Icon(
+                      FlutterIcons.card_bulleted_mco,
+                      color: Colors.grey,
+                    ),
+                    hintText: 'Numéro de carte',
+                    contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                    hoverColor: Constants.primaryColor,
+                    border: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                      ),
+                    ),
+                  ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      .copyWith(
+                    color: Colors.black,
+                  ),
+                  cursorColor: Colors.black,
+                )
+            )
+          ],
+        )
     );
   }
 }

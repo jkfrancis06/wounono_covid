@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wounono_covid/models/user.dart';
-import 'package:wounono_covid/pages/settings/user_informations.dart';
+import 'package:wounono_covid/pages/settings/user_informationsScreen.dart';
 import 'package:wounono_covid/utils/constants.dart';
 import 'package:wounono_covid/utils/helper.dart';
 

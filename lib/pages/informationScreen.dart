@@ -7,7 +7,7 @@ import 'package:wounono_covid/widgets/information/sanitary_procedure_airport_car
 import 'package:wounono_covid/widgets/information/stop_covid_card.dart';
 import 'package:wounono_covid/widgets/information/symptoms_card.dart';
 
-class Informations extends StatelessWidget {
+class InformationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {

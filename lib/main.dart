@@ -3,19 +3,19 @@ import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:wounono_covid/pages/dashboard.dart';
-import 'package:wounono_covid/pages/home.dart';
+import 'package:wounono_covid/pages/dashboardScreen.dart';
+import 'package:wounono_covid/pages/homeScreen.dart';
 import 'package:wounono_covid/pages/introScreen.dart';
 import 'package:wounono_covid/pages/location.dart';
 import 'package:wounono_covid/pages/settings/country_list.dart';
-import 'package:wounono_covid/pages/settings/user_informations.dart';
-import 'package:wounono_covid/pages/sign/loginPage.dart';
-import 'package:wounono_covid/pages/sign/signIn.dart';
-import 'package:wounono_covid/pages/sign/statusChoice.dart';
-import 'package:wounono_covid/pages/startup.dart';
-import 'package:wounono_covid/pages/travel/checkInPage.dart';
-import 'package:wounono_covid/pages/travel/personnalInfo.dart';
-import 'package:wounono_covid/pages/travel/travelInfoForm.dart';
+import 'package:wounono_covid/pages/settings/user_informationsScreen.dart';
+import 'package:wounono_covid/pages/sign/loginScreen.dart';
+import 'package:wounono_covid/pages/sign/signInScreen.dart';
+import 'package:wounono_covid/pages/sign/statusChoiceScreen.dart';
+import 'package:wounono_covid/pages/startupScreen.dart';
+import 'package:wounono_covid/pages/travel/checkInScreen.dart';
+import 'package:wounono_covid/pages/travel/personnalInfoScreen.dart';
+import 'package:wounono_covid/pages/travel/travelInfoFormScreen.dart';
 import 'package:wounono_covid/utils/constants.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:wounono_covid/widgets/travel/Tabs/dialog/parentInfoDialog.dart';
@@ -67,7 +67,7 @@ Route<dynamic> _onGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
     case "/":
       return MaterialPageRoute(builder: (BuildContext context) {
-        return Startup();
+        return StartupScreen();
       });
     case "/welcome":
       return MaterialPageRoute(builder: (BuildContext context) {
@@ -79,23 +79,23 @@ Route<dynamic> _onGenerateRoute(RouteSettings settings) {
       });
     case "/dashboard":
       return MaterialPageRoute(builder: (BuildContext context) {
-        return Dashboard();
+        return DashboardScreen();
       });
     case "/login":
       return MaterialPageRoute(builder: (BuildContext context) {
-        return LoginPage();
+        return LoginScreen();
       });
     case "/sign-in":
       return MaterialPageRoute(builder: (BuildContext context) {
-        return SignIn();
+        return SignInScreen();
       });
     case "/user-informations":
       return MaterialPageRoute(builder: (BuildContext context) {
-        return UserInformations();
+        return UserInformationsScreen();
       });
     case "/check-in":
       return MaterialPageRoute(builder: (BuildContext context) {
-        return CheckInPage();
+        return CheckInScreen();
       });
     case "/nationalite":
       return MaterialPageRoute(builder: (BuildContext context) {
@@ -103,11 +103,11 @@ Route<dynamic> _onGenerateRoute(RouteSettings settings) {
       });
     case "/travel-info-form":
       return MaterialPageRoute(builder: (BuildContext context) {
-        return TravelInfoForm();
+        return TravelInfoFormScreen();
       });
     case "/travel-personnal-form":
       return MaterialPageRoute(builder: (BuildContext context) {
-        return PersonnalInfo();
+        return PersonnalInfoScreen();
       });
     case "/parentInfoDialog":
       return MaterialPageRoute(builder: (BuildContext context) {
@@ -116,11 +116,11 @@ Route<dynamic> _onGenerateRoute(RouteSettings settings) {
 
     case "/status-choice":
       return MaterialPageRoute(builder: (BuildContext context) {
-        return StatusChoice();
+        return StatusChoiceScreen();
       });
     default:
       return MaterialPageRoute(builder: (BuildContext context) {
-        return Startup();
+        return StartupScreen();
       });
   }
 }
