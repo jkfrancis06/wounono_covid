@@ -113,10 +113,7 @@ Route<dynamic> _onGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (BuildContext context) {
         return ParentInfoDialog();
       });
-    case "/location":
-      return MaterialPageRoute(builder: (BuildContext context) {
-        return Location();
-      });
+
     case "/status-choice":
       return MaterialPageRoute(builder: (BuildContext context) {
         return StatusChoice();
