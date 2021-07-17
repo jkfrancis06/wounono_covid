@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wounono_covid/pages/dashboard.dart';
@@ -10,6 +11,7 @@ import 'package:wounono_covid/pages/settings/country_list.dart';
 import 'package:wounono_covid/pages/settings/user_informations.dart';
 import 'package:wounono_covid/pages/sign/loginPage.dart';
 import 'package:wounono_covid/pages/sign/signIn.dart';
+import 'package:wounono_covid/pages/sign/statusChoice.dart';
 import 'package:wounono_covid/pages/startup.dart';
 import 'package:wounono_covid/pages/travel/checkInPage.dart';
 import 'package:wounono_covid/pages/travel/personnalInfo.dart';
@@ -35,13 +37,14 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: Size(375, 812),
       builder: () => MaterialApp(
+        supportedLocales: [
+          const Locale('fr')
+        ],
         localizationsDelegates: [
+          FormBuilderLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: [
-          const Locale('fr')
         ],
         debugShowCheckedModeBanner: false,
         title: "Unono Covid-19",
@@ -113,6 +116,10 @@ Route<dynamic> _onGenerateRoute(RouteSettings settings) {
     case "/location":
       return MaterialPageRoute(builder: (BuildContext context) {
         return Location();
+      });
+    case "/status-choice":
+      return MaterialPageRoute(builder: (BuildContext context) {
+        return StatusChoice();
       });
     default:
       return MaterialPageRoute(builder: (BuildContext context) {

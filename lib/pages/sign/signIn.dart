@@ -1,13 +1,13 @@
 import 'package:country_picker/country_picker.dart';
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:smart_select/smart_select.dart';
 import 'package:wounono_covid/utils/constants.dart';
-import 'package:wounono_covid/utils/helper.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+
+
 
 
 class SignIn extends StatefulWidget {
@@ -19,11 +19,6 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
 
   int value = 0;
-  List<S2Choice<int>> options = [
-    S2Choice<int>(value: 0, title: 'Selectionner un genre', disabled: true),
-    S2Choice<int>(value: 1, title: 'Homme'),
-    S2Choice<int>(value: 2 , title: 'Femme')
-  ];
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -36,6 +31,9 @@ class _SignInState extends State<SignIn> {
   final TextEditingController controller = TextEditingController();
   String initialCountry = 'KM';
   PhoneNumber number = PhoneNumber(isoCode: 'KM');
+
+  final GlobalKey<FormBuilderState> _signInFormKey = GlobalKey<FormBuilderState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -114,8 +112,12 @@ class _SignInState extends State<SignIn> {
                             color: Colors.white,
                           ),
                           padding: EdgeInsets.all(24.0),
-                          child: Form(
-                            key: formKey,
+                          child: FormBuilder(
+                            key: _signInFormKey,
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            initialValue: {
+                              'accept_terms': true,
+                            },
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
@@ -133,7 +135,8 @@ class _SignInState extends State<SignIn> {
                                           height: ScreenUtil().setHeight(5.0),
                                         ),
                                         Container(
-                                            child: TextField(
+                                            child: FormBuilderTextField(
+                                              name: 'firstName',
                                               decoration: InputDecoration(
                                                 fillColor: Constants.scaffoldBackgroundColor,
                                                 filled: true,
@@ -156,6 +159,9 @@ class _SignInState extends State<SignIn> {
                                                   ),
                                                 ),
                                               ),
+                                              validator: FormBuilderValidators.compose([
+                                                FormBuilderValidators.required(context),
+                                              ]),
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyText1
@@ -185,7 +191,11 @@ class _SignInState extends State<SignIn> {
                                           height: ScreenUtil().setHeight(5.0),
                                         ),
                                         Container(
-                                            child: TextField(
+                                            child: FormBuilderTextField(
+                                              name: 'lastName',
+                                              validator: FormBuilderValidators.compose([
+                                                FormBuilderValidators.required(context),
+                                              ]),
                                               decoration: InputDecoration(
                                                 fillColor: Constants.scaffoldBackgroundColor,
                                                 filled: true,
@@ -222,48 +232,132 @@ class _SignInState extends State<SignIn> {
                                     )
                                 ),
 
+                                SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.02,
+                                ),
 
-                                SmartSelect<int>.single(
-                                    title: 'Genre ',
-                                    tileBuilder: (context, state) {
-                                      return S2Tile.fromState(
-                                        state,
-                                        padding:  EdgeInsets.symmetric(
-                                            horizontal: 12.0,
-                                            vertical: 2.0
-                                        ),
-                                        title: Text( 'Genre',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyText1
-                                                .copyWith(
-                                              color: Colors.black,
-                                            )
-                                        ),
-                                      );
-                                    },
-                                    choiceStyle: S2ChoiceStyle(
-                                        color: Constants.primaryColor,
-                                        activeColor: Constants.primaryColor
+
+                                Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 12.0,
                                     ),
-                                    choiceConfig: S2ChoiceConfig(
-                                        useDivider: true
-                                    ),
-                                    modalConfig: S2ModalConfig(
-                                        headerStyle: S2ModalHeaderStyle(
-                                          textStyle: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black,
-                                              fontSize: ScreenUtil().setSp(18)
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Genre : ',
+                                        ),
+                                        SizedBox(
+                                          height: ScreenUtil().setHeight(5.0),
+                                        ),
+                                        FormBuilderDropdown(
+                                          name: 'gender',
+                                          decoration: InputDecoration(
+                                            fillColor: Constants.scaffoldBackgroundColor,
+                                            filled: true,
+                                            contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                                            hoverColor: Constants.primaryColor,
+                                            border: OutlineInputBorder(),
+                                            suffixIcon: Icon(
+                                              FlutterIcons.gender_male_female_mco,
+                                              color: Colors.grey,
+
+                                            ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                              ),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                              ),
+                                            ),
                                           ),
-                                        )
-                                    ),
-                                    value: value,
-                                    choiceItems: options,
-                                    onChange: (state) => setState(() => value = state.value)
+                                          // initialValue: 'Male',
+                                          hint: Text('Selectionner votre genre'),
+                                          validator: FormBuilderValidators.compose([
+                                            FormBuilderValidators.required(context),
+                                          ]),
+                                          items: ['Homme', 'Femme']
+                                              .map((gender) => DropdownMenuItem(
+                                              value: gender, child: Text("$gender")))
+                                              .toList(),
+                                        ),
+                                      ],
+                                    )
+                                ),
+
+
+                                SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.02,
                                 ),
 
                                 Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 12.0,
+                                    ),
+                                    child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            'Date de naissance : ',
+                                          ),
+                                          SizedBox(
+                                            height: ScreenUtil().setHeight(5.0),
+                                          ),
+                                          Theme(
+                                              data: ThemeData(
+                                                primaryColor: Constants.primaryColor, //constant Color(0xFF16A5A6)
+                                                accentColor: Constants.primaryColor, //constant Color(0xFF58AAAC)
+                                                appBarTheme: AppBarTheme(
+                                                  textTheme: TextTheme(
+                                                    bodyText2: TextStyle(
+                                                      color: Constants.primaryColor,
+                                                    ),
+                                                  ),
+                                                ),
+                                                canvasColor: Color(0xFFD8DBE2),
+                                              ),
+                                              child: FormBuilderDateTimePicker(
+                                                validator: FormBuilderValidators.compose([
+                                                  FormBuilderValidators.required(context),
+                                                ]),
+                                                lastDate: DateTime.now(),
+                                                name: 'birthDate',
+                                                // onChanged: _onChanged,
+                                                inputType: InputType.date,
+                                                format: DateFormat("dd-MM-yyyy"),
+                                                decoration: InputDecoration(
+                                                  fillColor: Constants.scaffoldBackgroundColor,
+                                                  filled: true,
+                                                  suffixIcon: Icon(
+                                                    FlutterIcons.calendar_ant,
+                                                    color: Colors.grey,
+                                                  ),
+                                                  contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                                                  hoverColor: Constants.primaryColor,
+                                                  border: OutlineInputBorder(),
+                                                  hintText: 'Selectionner votre date de naissance',
+                                                  enabledBorder: OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Colors.transparent,
+                                                    ),
+                                                  ),
+                                                  focusedBorder: OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Colors.transparent,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                          )
+
+                                        ])
+                                ),
+
+
+                                /* Padding(
                                     padding: EdgeInsets.symmetric(
                                       horizontal: 12.0,
                                     ),
@@ -325,7 +419,7 @@ class _SignInState extends State<SignIn> {
                                             },
                                           ),
                                         ])
-                                ),
+                                ), */
 
 
                                 SizedBox(
@@ -346,14 +440,25 @@ class _SignInState extends State<SignIn> {
                                           height: ScreenUtil().setHeight(5.0),
                                         ),
                                         Container(
-                                            child: TextField(
+                                            child: FormBuilderTextField(
+                                                name: 'country',
+                                                validator: FormBuilderValidators.compose([
+                                                  FormBuilderValidators.required(context),
+                                                ]),
                                                 onTap: (){
                                                   // _navigateAndDisplaySelection(context);
                                                   showCountryPicker(
                                                     context: context,
-                                                    showPhoneCode: true, // optional. Shows phone code before the country name.
+                                                    showPhoneCode: false, // optional. Shows phone code before the country name.
                                                     onSelect: (Country country) {
                                                       print('Select country: ${country}');
+                                                      var state = _signInFormKey.currentState;
+                                                      state.patchValue(
+                                                        {
+                                                          'country': country.name
+                                                        }
+                                                      );
+
                                                     },
                                                     countryListTheme: CountryListThemeData(
                                                       // Optional. Sets the border radius for the bottomsheet.
@@ -434,13 +539,17 @@ class _SignInState extends State<SignIn> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "Numero de piece d'identité : ",
+                                          "Numero de carte d'identité : ",
                                         ),
                                         SizedBox(
                                           height: ScreenUtil().setHeight(5.0),
                                         ),
                                         Container(
-                                            child: TextField(
+                                            child: FormBuilderTextField(
+                                              validator: FormBuilderValidators.compose([
+                                                FormBuilderValidators.required(context),
+                                              ]),
+                                              name: 'cardNumber',
                                               decoration: InputDecoration(
                                                 fillColor: Constants.scaffoldBackgroundColor,
                                                 filled: true,
@@ -448,7 +557,7 @@ class _SignInState extends State<SignIn> {
                                                   Icons.assignment_ind_outlined,
                                                   color: Colors.grey,
                                                 ),
-                                                hintText: 'Numéro de pièce',
+                                                hintText: 'Numéro de carte',
                                                 contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                                                 hoverColor: Constants.primaryColor,
                                                 border: OutlineInputBorder(),
@@ -563,6 +672,14 @@ class _SignInState extends State<SignIn> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         InkWell(
+                                          onTap: (){
+                                            if (_signInFormKey.currentState?.saveAndValidate() ?? false) {
+                                              print('Valid');
+                                            } else {
+                                              print('Invalid');
+                                            }
+                                            print(_signInFormKey.currentState?.value);
+                                          },
                                           child: Container(
                                             width: double.infinity,
                                             height: ScreenUtil().setHeight(48.0),

@@ -111,7 +111,7 @@ class Startup extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: (){
-                            nextScreen(context, "/sign-in");
+                            nextScreen(context, "/status-choice");
                           },
                           child: Container(
                             width: double.infinity,
