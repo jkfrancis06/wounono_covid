@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:wounono_covid/models/consumer.dart';
 import 'package:wounono_covid/utils/constants.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -26,7 +27,6 @@ class _SignInState extends State<SignInScreen> {
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-
   final format = DateFormat("dd-MM-yyyy");
   final myController = TextEditingController();
 
@@ -37,6 +37,10 @@ class _SignInState extends State<SignInScreen> {
   PhoneNumber number = PhoneNumber(isoCode: 'KM');
 
   final GlobalKey<FormBuilderState> _signInFormKey = GlobalKey<FormBuilderState>();
+
+  Consumer consumer;
+
+  Country _selectedCountry;
 
 
   @override
@@ -458,6 +462,7 @@ class _SignInState extends State<SignInScreen> {
                                                     onSelect: (Country country) {
                                                       print('Select country: ${country}');
                                                       var state = _signInFormKey.currentState;
+                                                      _selectedCountry = country;
                                                       state.patchValue(
                                                         {
                                                           'country': country.name
@@ -682,7 +687,14 @@ class _SignInState extends State<SignInScreen> {
                                         InkWell(
                                           onTap: (){
                                             if (_signInFormKey.currentState?.saveAndValidate() ?? false) {
-                                              print('Valid');
+                                                consumer.firstName = _signInFormKey.currentState?.value['firstname'];
+                                                consumer.lastName = _signInFormKey.currentState?.value['lastname'];
+                                                consumer.gender = _signInFormKey.currentState?.value['gender'];
+                                                DateFormat _formatter = DateFormat('yyyy-MM-dd');
+                                                consumer.birthDate = _formatter.format(_signInFormKey.currentState?.value['birthDate']);
+                                                consumer.country = _selectedCountry.countryCode;
+                                                consumer.phoneNumber = _signInFormKey.currentState?.value['phoneNumber'];
+                                                consumer.passportNumber = _signInFormKey.currentState?.value['passportNumber'];
                                             } else {
                                               print('Invalid');
                                             }
@@ -701,6 +713,7 @@ class _SignInState extends State<SignInScreen> {
                                                   blurRadius: 8.0,
                                                   offset: Offset(0, 2),
                                                 )
+
                                               ],
                                             ),
                                             child: Center(
