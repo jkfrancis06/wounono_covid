@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 import 'package:wounono_covid/models/consumer.dart';
 import 'package:wounono_covid/pages/verification/pinCodeVerificationScreen.dart';
 import 'package:wounono_covid/utils/constants.dart';
@@ -688,7 +689,7 @@ class _SignInState extends State<SignInScreen> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         InkWell(
-                                          onTap: (){
+                                          onTap: () async {
                                             if (_signInFormKey.currentState?.saveAndValidate() ?? false) {
                                                 print(_signInFormKey.currentState?.value);
                                                 consumer.firstName = _signInFormKey.currentState?.value['firstname'];
@@ -702,6 +703,8 @@ class _SignInState extends State<SignInScreen> {
                                                 consumer.cardNumber = _signInFormKey.currentState?.value['cardNumber'];
                                                 print(consumer);
                                                 _showConfirmPopup(consumer.phoneNumber);
+                                                final signature = await SmsAutoFill().getAppSignature;
+                                                print(signature);
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(

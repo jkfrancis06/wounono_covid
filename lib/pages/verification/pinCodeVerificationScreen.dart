@@ -1,8 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 
 import 'package:wounono_covid/utils/constants.dart';
+
+import 'package:pin_input_text_field/pin_input_text_field.dart';
+
+
 
 class PinCodeVerificationScreen extends StatefulWidget {
 
@@ -30,11 +35,13 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
   @override
   void initState() {
     super.initState();
+    _listenForCode();
   }
 
   @override
   void dispose() {
     super.dispose();
+    SmsAutoFill().unregisterListener();
   }
 
   // snackBar Widget
@@ -49,6 +56,11 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    String _code="";
+    String signature = "{{ app signature }}";
+
+
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -93,11 +105,49 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                 SizedBox(
                   height: 20,
                 ),
+                Padding(
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8),
+                  child: PinFieldAutoFill(
+                    decoration: UnderlineDecoration(
+                      textStyle: TextStyle(fontSize: 20, color: Colors.black),
+                      colorBuilder: FixedColorBuilder(Colors.black.withOpacity(0.3)),
+                    ),
+                    currentCode: _code,
+                    onCodeSubmitted: (code) {},
+                    onCodeChanged: (code) {
+                      print(code);
+                      if (code.length == 6) {
+                        FocusScope.of(context).requestFocus(FocusNode());
+                      }
+                    },
+                  ),
+                ),
+
+
+                SizedBox(
+                  height: 20,
+                ),
+
+                Text("App Signature : $signature"),
+                SizedBox(height: 4.0),
+
+                ElevatedButton(
+                  child: Text('Get app signature'),
+                  onPressed: () async {
+                    signature = await SmsAutoFill().getAppSignature;
+                    setState(() {});
+                  },
+                ),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  void _listenForCode() async {
+    await SmsAutoFill().listenForCode;
   }
 }
