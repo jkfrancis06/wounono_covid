@@ -7,6 +7,9 @@ import 'package:wounono_covid/utils/constants.dart';
 
 import 'package:pin_input_text_field/pin_input_text_field.dart';
 
+import 'package:otp_autofill/otp_autofill.dart';
+
+
 
 
 class PinCodeVerificationScreen extends StatefulWidget {
@@ -36,6 +39,9 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
   void initState() {
     super.initState();
     _listenForCode();
+    OTPInteractor.getAppSignature()
+    //ignore: avoid_print
+        .then((value) => print('signature - $value'));
   }
 
   @override

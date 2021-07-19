@@ -33,7 +33,6 @@ class _HomeState extends State<Home> {
   // Track active index
   int activeIndex = 0;
 
-  DateTime currentBackPressTime;
 
 
   final List<Widget> _pageOptions = [

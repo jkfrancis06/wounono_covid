@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:otp_autofill/otp_autofill.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:wounono_covid/models/consumer.dart';
 import 'package:wounono_covid/pages/verification/pinCodeVerificationScreen.dart';
@@ -45,6 +46,14 @@ class _SignInState extends State<SignInScreen> {
   Country _selectedCountry;
 
   PhoneNumber _selectedPhoneNumber;
+
+  @override
+  void initState() {
+    super.initState();
+    OTPInteractor.getAppSignature()
+    //ignore: avoid_print
+        .then((value) => print('signature - $value'));
+  }
 
 
   @override

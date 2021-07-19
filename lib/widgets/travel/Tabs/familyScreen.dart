@@ -39,7 +39,7 @@ class _FamiyScreenState extends State<FamiyScreen> {
                                (Set<MaterialState> states) {
                              if (states.contains(MaterialState.pressed))
                                return Theme.of(context).colorScheme.secondary.withOpacity(0.5);
-                             return null; // Use the component's default.
+                             return null;
                            },
                          ),
                        ),
