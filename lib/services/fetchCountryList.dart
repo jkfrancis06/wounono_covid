@@ -12,16 +12,5 @@ Future<List<ApiCountry>> fetchCountryList() async {
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
 
-  if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON
-    var data = ApiCountry.decode(response.body);
-    final SharedPreferences sharedCountries = await _prefs;
-    await sharedCountries.setString('countries', ApiCountry.encode(data));
-    return data;
-  } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
-    throw Exception('Failed to load data');
-  }
+
 }

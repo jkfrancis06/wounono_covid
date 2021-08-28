@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
 import 'package:wounono_covid/utils/constants.dart';
@@ -34,11 +36,11 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
   bool hasError = false;
   String currentText = "";
   final formKey = GlobalKey<FormState>();
+  String _code  = "";
 
   @override
   void initState() {
     super.initState();
-    _listenForCode();
     OTPInteractor.getAppSignature()
     //ignore: avoid_print
         .then((value) => print('signature - $value'));
@@ -47,7 +49,6 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
   @override
   void dispose() {
     super.dispose();
-    SmsAutoFill().unregisterListener();
   }
 
   // snackBar Widget
@@ -62,11 +63,6 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-    String _code="";
-    String signature = "{{ app signature }}";
-
-
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -78,8 +74,12 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
             width: MediaQuery.of(context).size.width,
             child: ListView(
               children: <Widget>[
-                SizedBox(height: 30),
-                SizedBox(height: 8),
+                SizedBox(
+                    height: ScreenUtil().setHeight(20)
+                ),
+                SizedBox(
+                    height: ScreenUtil().setHeight(8)
+                ),
                 Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: 12.0,
@@ -100,7 +100,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                           TextSpan(
                               text: "${widget.phoneNumber}",
                               style: TextStyle(
-                                  color: Colors.black,
+                                  color: Constants.primaryColor,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15)),
                         ],
@@ -109,7 +109,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                    height: ScreenUtil().setHeight(20)
                 ),
                 Padding(
                   padding:
@@ -119,31 +119,60 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                       textStyle: TextStyle(fontSize: 20, color: Colors.black),
                       colorBuilder: FixedColorBuilder(Colors.black.withOpacity(0.3)),
                     ),
+                    cursor: Cursor(
+                      color: Constants.primaryColor,
+                      width: 2.0,
+                      height: 20,
+                      enabled: true
+                    ),
                     currentCode: _code,
                     onCodeSubmitted: (code) {},
                     onCodeChanged: (code) {
-                      print(code);
                       if (code.length == 6) {
                         FocusScope.of(context).requestFocus(FocusNode());
                       }
                     },
                   ),
                 ),
-
-
                 SizedBox(
-                  height: 20,
+                    height: ScreenUtil().setHeight(50)
                 ),
+                Padding(
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8),
+                  child:Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: ScreenUtil().setWidth(200.0),
+                        height: ScreenUtil().setHeight(50.0),
+                        child: InkWell(
+                          onTap: (){
+                            print("top");
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                  Icons.message_outlined
+                              ),
+                              SizedBox(
+                                width: ScreenUtil().setWidth(5.0),
+                              ),
+                              Flexible(
+                                  child:Text(
+                                      "Renvoyer SMS"
+                                  )
+                              ),
+                            ],
+                          ),
+                        )
+                      ),
 
-                Text("App Signature : $signature"),
-                SizedBox(height: 4.0),
-
-                ElevatedButton(
-                  child: Text('Get app signature'),
-                  onPressed: () async {
-                    signature = await SmsAutoFill().getAppSignature;
-                    setState(() {});
-                  },
+                      Container(
+                        child: Text("5:00"),
+                      )
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -151,9 +180,5 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
         ),
       ),
     );
-  }
-
-  void _listenForCode() async {
-    await SmsAutoFill().listenForCode;
   }
 }

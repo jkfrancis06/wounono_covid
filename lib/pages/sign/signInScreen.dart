@@ -7,6 +7,7 @@ import 'package:otp_autofill/otp_autofill.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:wounono_covid/models/consumer.dart';
 import 'package:wounono_covid/pages/verification/pinCodeVerificationScreen.dart';
+import 'package:wounono_covid/services/consumerApiRequests.dart';
 import 'package:wounono_covid/utils/constants.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -46,6 +47,11 @@ class _SignInState extends State<SignInScreen> {
   Country _selectedCountry;
 
   PhoneNumber _selectedPhoneNumber;
+
+  List<Map> genderOptions = [
+    {"gender": "Homme", "value":1},
+    {"gender": "Femme", "value":2},
+  ];
 
   @override
   void initState() {
@@ -301,9 +307,11 @@ class _SignInState extends State<SignInScreen> {
                                           validator: FormBuilderValidators.compose([
                                             FormBuilderValidators.required(context),
                                           ]),
-                                          items: ['Homme', 'Femme']
+                                          items: genderOptions
                                               .map((gender) => DropdownMenuItem(
-                                              value: gender, child: Text("$gender")))
+                                            value: gender['value'],
+                                            child: Text(gender["gender"]),
+                                          ))
                                               .toList(),
                                         ),
                                       ],
@@ -551,7 +559,11 @@ class _SignInState extends State<SignInScreen> {
                                     )
                                 ),
 
+
+                                if (widget.consumerType == 1) _displayNiNCard(),
+
                                 if (widget.consumerType == 1) _displayIdCard(),
+
 
 
                                 SizedBox(
@@ -698,11 +710,11 @@ class _SignInState extends State<SignInScreen> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         InkWell(
-                                          onTap: () async {
+                                          onTap: (){
                                             if (_signInFormKey.currentState?.saveAndValidate() ?? false) {
                                                 print(_signInFormKey.currentState?.value);
-                                                consumer.firstName = _signInFormKey.currentState?.value['firstname'];
-                                                consumer.lastName = _signInFormKey.currentState?.value['lastname'];
+                                                consumer.firstName = _signInFormKey.currentState?.value['firstName'];
+                                                consumer.lastName = _signInFormKey.currentState?.value['firstName'];
                                                 consumer.gender = _signInFormKey.currentState?.value['gender'];
                                                 DateFormat _formatter = DateFormat('yyyy-MM-dd');
                                                 consumer.birthDate = _formatter.format(_signInFormKey.currentState?.value['birthDate']);
@@ -710,10 +722,8 @@ class _SignInState extends State<SignInScreen> {
                                                 consumer.phoneNumber = _selectedPhoneNumber.phoneNumber;
                                                 consumer.passportNumber = _signInFormKey.currentState?.value['passportNumber'];
                                                 consumer.cardNumber = _signInFormKey.currentState?.value['cardNumber'];
-                                                print(consumer);
-                                                _showConfirmPopup(consumer.phoneNumber);
-                                                final signature = await SmsAutoFill().getAppSignature;
-                                                print(signature);
+
+                                               // _submitConsumerCreation(consumer);
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
@@ -824,6 +834,66 @@ class _SignInState extends State<SignInScreen> {
     )??false; //if showDialouge had returned null, then return false
   }
 
+  Widget _displayNiNCard(){
+    return Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: 12.0,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
+            ),
+
+            Text(
+              "NIN : ",
+            ),
+            SizedBox(
+              height: ScreenUtil().setHeight(5.0),
+            ),
+            Container(
+                child: FormBuilderTextField(
+                  validator: FormBuilderValidators.compose([
+                    FormBuilderValidators.required(context),
+                  ]),
+                  name: 'cardNumber',
+                  decoration: InputDecoration(
+                    fillColor: Constants.scaffoldBackgroundColor,
+                    filled: true,
+                    suffixIcon: Icon(
+                      FlutterIcons.card_bulleted_outline_mco,
+                      color: Colors.grey,
+                    ),
+                    hintText: "Numero d'identification nationale",
+                    contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                    hoverColor: Constants.primaryColor,
+                    border: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                      ),
+                    ),
+                  ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      .copyWith(
+                    color: Colors.black,
+                  ),
+                  cursorColor: Colors.black,
+                )
+            )
+          ],
+        )
+    );
+  }
+
   Widget _displayIdCard(){
     return Padding(
         padding: EdgeInsets.symmetric(
@@ -883,4 +953,11 @@ class _SignInState extends State<SignInScreen> {
         )
     );
   }
+
+
+  _submitConsumerCreation(consumer) async {
+    final response = await signUpConsumer(consumer);
+    print(response);
+  }
+
 }
